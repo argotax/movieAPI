@@ -22,8 +22,11 @@ router.get('/', function(req, res, next) {
       models
       .categories
       .destroy({
-        id: params['id']
+        where: {
+          id: params['id']
+        }
       });
+      break;
 
     case 'modify':
 
