@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var url = require('url');
 var querystring = require('querystring');
+var models = require('../models');
 
 /* GET movie listing. */
 router.get('/', function(req, res, next) {
@@ -9,7 +10,15 @@ router.get('/', function(req, res, next) {
 
   switch (params['type']) {
     case 'add':
-      
+    models
+    .film
+    .create({
+      titre: params['title'],
+      année: params['year'],
+      poster: params['poster'],
+      synopsis: params['synopsis'],
+      category: params['category']
+    });
       break;
     case 'Mangoes':
     case 'Papayas':
