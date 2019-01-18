@@ -6,6 +6,7 @@ var models = require('../models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  var params = querystring.parse(url.parse(req.url).query);
 
   switch (params['type']) {
     case 'add':
@@ -30,7 +31,7 @@ router.get('/', function(req, res, next) {
               models
               .actors
               .update({
-                firstname: params['value']
+                firstname: params['firstnameValue']
                },{
                  where: { id: id }
                })
@@ -38,7 +39,7 @@ router.get('/', function(req, res, next) {
               models
               .actors
               .update({
-                lastname: params['value']
+                lastname: params['lastnameValue']
                },{
                  where: { id: id }
                })
