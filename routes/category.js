@@ -17,11 +17,11 @@ router.get('/', function(req, res, next) {
       });
       break;
 
-      
+
     case 'delete':
       models
       .categories
-      .delete({
+      .destroy({
         id: params['id']
       });
 
@@ -34,13 +34,14 @@ router.get('/', function(req, res, next) {
       }).then(
         category =>{
           id = category.id;
+          console.log(id);
           models
           .categories
           .update({
-            name : params['name']
-          }),{
-            where : {id : id}
-          }
+            name : params['newName']
+          },{
+            where : { id: id }
+          });
         }
       );
 
