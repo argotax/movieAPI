@@ -38,27 +38,60 @@ router.get('/', function(req, res, next) {
                },{
                  where: { id: id }
                })
-            case 'Mangoes':
-            case 'Papayas':
-              console.log('Mangoes and papayas are $2.79 a pound.');
-              // expected output: "Mangoes and papayas are $2.79 a pound."
+            case 'année':
+              models
+              .film
+              .update({
+                année: params['value']
+               },{
+                 where: { id: id }
+               })
+            case 'poster':
+            models
+            .film
+            .update({
+              poster: params['value']
+             },{
+               where: { id: id }
+             })
+              break;
+            case 'synopsis':
+            models
+            .film
+            .update({
+              synopsis: params['value']
+             },{
+               where: { id: id }
+             })
+              break;
+            case 'category':
+            models
+            .film
+            .update({
+              category: params['value']
+             },{
+               where: { id: id }
+             })
               break;
             default:
-              console.log('Sorry, we are out of ' + expr + '.');
+              console.log('Undefined label');
             }
-
         }
       );
 
       break;
-    case 'Papayas':
-      console.log('Mangoes and papayas are $2.79 a pound.');
+    case 'delete':
+      models
+      .film
+      .destroy({
+        where: {
+          titre: params['title']
+        }
+      })
       break;
     default:
       console.log('Undefined type');
   }
-
-
 
   res.render('index', { title: 'Express' });
 });
