@@ -10,25 +10,88 @@ router.get('/', function(req, res, next) {
 
   switch (params['type']) {
     case 'add':
-    models
-    .film
-    .create({
-      titre: params['title'],
-      année: params['year'],
-      poster: params['poster'],
-      synopsis: params['synopsis'],
-      category: params['category']
-    });
+      models
+      .film
+      .create({
+        titre: params['title'],
+        année: params['year'],
+        poster: params['poster'],
+        synopsis: params['synopsis'],
+        category: params['category']
+      });
       break;
-    case 'Mangoes':
-    case 'Papayas':
-      console.log('Mangoes and papayas are $2.79 a pound.');
+    case 'modify':
+      models
+      .film
+      .findOne({
+        where:{ titre: params['title'] }
+      }).then(
+        film => {
+          id = film.id;
+
+          switch (params['label']) {
+            case 'titre':
+              models
+              .film
+              .update({
+                titre: params['value']
+               },{
+                 where: { id: id }
+               })
+            case 'année':
+              models
+              .film
+              .update({
+                année: params['value']
+               },{
+                 where: { id: id }
+               })
+            case 'poster':
+            models
+            .film
+            .update({
+              poster: params['value']
+             },{
+               where: { id: id }
+             })
+              break;
+            case 'synopsis':
+            models
+            .film
+            .update({
+              synopsis: params['value']
+             },{
+               where: { id: id }
+             })
+              break;
+            case 'category':
+            models
+            .film
+            .update({
+              category: params['value']
+             },{
+               where: { id: id }
+             })
+              break;
+            default:
+              console.log('Undefined label');
+            }
+        }
+      );
+
+      break;
+    case 'delete':
+      models
+      .film
+      .destroy({
+        where: {
+          titre: params['title']
+        }
+      })
       break;
     default:
       console.log('Undefined type');
   }
-
-
 
   res.render('index', { title: 'Express' });
 });
