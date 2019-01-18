@@ -17,13 +17,16 @@ router.get('/', function(req, res, next) {
       });
       break;
 
-      
+
     case 'delete':
       models
       .categories
-      .delete({
-        id: params['id']
+      .destroy({
+        where: {
+          id: params['id']
+        }
       });
+      break;
 
     case 'modify':
 
@@ -34,13 +37,14 @@ router.get('/', function(req, res, next) {
       }).then(
         category =>{
           id = category.id;
+          console.log(id);
           models
           .categories
           .update({
-            name : params['name']
-          }),{
-            where : {id : id}
-          }
+            name : params['newName']
+          },{
+            where : { id: id }
+          });
         }
       );
 
